@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Inclusive Trip - Explore barrier-free, accessible travel destinations tailored for you.">
+  <title>Dashboard | Inclusive Trip</title>
+  <link rel="stylesheet" href="css/main.css">
+  <style>
+    /* Dashboard Specific Styles */
+    .dashboard-hero {
+      background: linear-gradient(135deg, #0284c7 0%, #0d9488 100%);
+      color: var(--text-inverse);
+      padding: 3.5rem 2rem;
+      border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .hero-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      opacity: 0.92;
+      max-width: 600px;
+    }
+
+    .user-profile-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 1.25rem 1.75rem;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .user-avatar {
+      width: 48px;
+      height: 48px;
+      background: var(--bg-card);
+      color: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .user-details h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .user-details p {
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .dashboard-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem 1.5rem;
+      flex: 1;
+      width: 100%;
+    }
+
+    .section-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-tags {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .tag-btn {
+      padding: 0.5rem 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-full);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all var(--transition-fast);
+    }
+
+    .tag-btn.active, .tag-btn:hover {
+      background: var(--primary);
+      color: var(--text-inverse);
+      border-color: var(--primary);
+    }
+
+    .trips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .trip-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      box-shadow: var(--shadow-sm);
+      transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .trip-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .trip-badge {
+      display: inline-block;
+      padding: 0.25rem 0.6rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-accessible {
+      background: #e0f2fe;
+      color: #0284c7;
+    }
+
+    .badge-sensory {
+      background: #f0fdf4;
+      color: #16a34a;
+    }
+
+    .badge-guided {
+      background: #fef3c7;
+      color: #d97706;
+    }
+
+    .trip-card h3 {
+      font-size: 1.2rem;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .trip-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      margin-bottom: 1.25rem;
+      line-height: 1.5;
+    }
+
+    .trip-features {
+      list-style: none;
+      font-size: 0.825rem;
+      color: var(--text-muted);
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .trip-features li::before {
+      content: "✓ ";
+      color: var(--success);
+      font-weight: bold;
+    }
+
+    @media (max-width: 768px) {
+      .hero-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .dashboard-hero {
+        padding: 2.5rem 1.25rem;
+      }
+      .trips-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Authenticated Navbar -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-brand" aria-label="Inclusive Trip Dashboard">
+      <div class="brand-icon" aria-hidden="true">✈</div>
+      <span>Inclusive Trip</span>
+    </a>
+    
+    <div style="display: flex; align-items: center; gap: 1rem;">
+      <span class="accessibility-badge">♿ Verified Accessible</span>
+      <button id="logout-btn" class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" title="Sign out of your session">
+        Log Out
+      </button>
+    </div>
+  </header>
+
+  <!-- Hero Banner displaying authenticated user state -->
+  <section class="dashboard-hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <h1>Welcome, <span id="user-display-name">Traveler</span>!</h1>
+        <p>Your barrier-free travel hub. Discover destinations with verified wheelchair access, sensory quiet zones, and assistive support.</p>
+      </div>
+      <div class="user-profile-card">
+        <div class="user-avatar" aria-hidden="true">👤</div>
+        <div class="user-details">
+          <h3 id="user-display-role">Verified Traveler</h3>
+          <p id="user-display-email">user@inclusivetrip.org</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Inclusive Experiences -->
+  <main class="dashboard-main" role="main">
+    <h2 class="section-title">
+      <span>Accessible Expeditions & Escapes</span>
+    </h2>
+
+    <div class="filter-tags" role="toolbar" aria-label="Accessibility feature filters">
+      <button class="tag-btn active">All Destinations</button>
+      <button class="tag-btn">♿ Step-Free Paths</button>
+      <button class="tag-btn">🎧 Low-Sensory Spaces</button>
+      <button class="tag-btn">🐕 Service Animals Welcomed</button>
+      <button class="tag-btn">🚌 Accessible Shuttles</button>
+    </div>
+
+    <div class="trips-grid">
+      <!-- Card 1 -->
+      <article class="trip-card">
+        <div>
+          <span class="trip-badge badge-accessible">100% Step-Free</span>
+          <h3>Pacific Coast Accessible Boardwalk</h3>
+          <p>Panoramic ocean lookouts featuring tactile guide rails, wide ADA boardwalks, and beach-accessible wheelchairs available on-site.</p>
+          <ul class="trip-features">
+            <li>Zero-grade ramp access from parking</li>
+            <li>Braille interpretive audio guides</li>
+            <li>Accessible companion restrooms</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">View Itinerary</button>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="trip-card">
+        <div>
+          <span class="trip-badge badge-sensory">Sensory Friendly</span>
+          <h3>Alpine Botanical Quiet Pavilion</h3>
+          <p>Curated serene walking trails with low-stimulation quiet gardens, gentle acoustic water features, and noise-cancelling headset rentals.</p>
+          <ul class="trip-features">
+            <li>Designated sensory decompression rooms</li>
+            <li>Visual sensory maps provided ahead of time</li>
+            <li>Certified neurodiverse trained guides</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">View Itinerary</button>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="trip-card">
+        <div>
+          <span class="trip-badge badge-guided">Assisted Transit</span>
+          <h3>Historical Harbor Cruise & Tour</h3>
+          <p>Hydraulic lift embarkation with guided live audio-described narration and ASL interpreters on all scheduled departures.</p>
+          <ul class="trip-features">
+            <li>Roll-on vessel boarding ramps</li>
+            <li>ASL interpretation and live captions</li>
+            <li>Dedicated companion priority seating</li>
+          </ul>
+        </div>
+        <button class="btn btn-primary" style="width: 100%;">View Itinerary</button>
+      </article>
+    </div>
+  </main>
+
+  <footer style="text-align: center; padding: 2rem; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border-subtle);">
+    Inclusive Trip Platform • Jira ITD-12 User Login Demonstration
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/auth-service.js"></script>
+  <script src="js/auth-guard.js"></script>
+</body>
+</html>

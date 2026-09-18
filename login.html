@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="User Login for Inclusive Trip - Empowering accessible and inclusive travel for everyone.">
+  <title>User Login | Inclusive Trip</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+  <!-- Accessible Header / Navbar -->
+  <header class="navbar" role="banner">
+    <a href="index.html" class="nav-brand" aria-label="Inclusive Trip Home">
+      <div class="brand-icon" aria-hidden="true">✈</div>
+      <span>Inclusive Trip</span>
+    </a>
+    <span class="accessibility-badge" title="Accessible & Inclusive Travel Platform">♿ Accessible Travel</span>
+  </header>
+
+  <!-- Login Section (ITD-12) -->
+  <main class="login-container" role="main">
+    <div class="login-wrapper">
+
+      <div class="login-card">
+        <div class="login-header">
+          <h1>Welcome Back</h1>
+          <p>Sign in to plan and manage your inclusive journeys</p>
+        </div>
+
+        <!-- Dynamic Server/API Alert Box -->
+        <div id="alert-container" style="display: none;" aria-live="polite"></div>
+
+        <!-- User Login Form -->
+        <form id="login-form" novalidate aria-label="User Login Form">
+          
+          <!-- Requirement 1 & 2: Email Field with Required & Format Validation -->
+          <div class="form-group" id="email-group">
+            <label for="email" class="form-label">
+              <span>Email Address</span>
+            </label>
+            <div class="input-container">
+              <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                class="form-input" 
+                placeholder="name@example.com"
+                autocomplete="email"
+                required
+                aria-required="true"
+                aria-describedby="email-error"
+              >
+            </div>
+            <span id="email-error" class="error-text" role="alert"></span>
+          </div>
+
+          <!-- Requirement 1, 2, 4: Password Field (Hidden by default with accessible toggle) -->
+          <div class="form-group" id="password-group">
+            <div class="form-label">
+              <label for="password">Password</label>
+            </div>
+            <div class="input-container">
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-input" 
+                placeholder="••••••••"
+                autocomplete="current-password"
+                required
+                aria-required="true"
+                aria-describedby="password-error"
+              >
+              <button 
+                type="button" 
+                id="toggle-password-btn" 
+                class="password-toggle-btn" 
+                aria-label="Show password"
+              >Show</button>
+            </div>
+            <span id="password-error" class="error-text" role="alert"></span>
+          </div>
+
+          <!-- Auxiliary Options -->
+          <div class="form-actions-row">
+            <label class="remember-me">
+              <input type="checkbox" id="remember-me" name="remember-me">
+              <span>Remember me</span>
+            </label>
+            <a href="#" class="forgot-password-link" onclick="alert('Password reset link will be sent to your registered email.'); return false;">Forgot password?</a>
+          </div>
+
+          <!-- Requirement 1: Login Submit Button -->
+          <button type="submit" id="submit-btn" class="btn btn-primary btn-login-submit">
+            Sign In
+          </button>
+
+          <!-- Testing / Jira Reviewer Helper Box -->
+          <div class="demo-credentials-box">
+            <h3>
+              <span>QA / Jira ITD-12 Test Accounts</span>
+              <button type="button" id="fill-demo-btn" class="btn-fill-demo">Autofill Demo</button>
+            </h3>
+            <p><strong>Valid user:</strong> <code>traveler@inclusivetrip.org</code></p>
+            <p><strong>Password:</strong> <code>Password@123</code></p>
+            <p style="margin-top: 0.35rem; font-size: 0.75rem; color: var(--text-muted);">
+              Tip: Test invalid email format, empty inputs, and wrong passwords to verify all ITD-12 validation rules.
+            </p>
+          </div>
+
+        </form>
+
+      </div>
+
+      <div class="login-footer">
+        <p>Don't have an account? <a href="#" onclick="alert('Registration module ITD-13 coming soon!'); return false;">Create an account</a></p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Application Scripts -->
+  <script src="js/auth-service.js"></script>
+  <script src="js/login.js"></script>
+</body>
+</html>
